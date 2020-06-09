@@ -5,11 +5,17 @@ import { TodosService } from './todos.service';
 import {  Todo, TodoSchema } from './schemas/todo.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature(
-    [
-      { name: Todo.name, schema: TodoSchema },
-    ],
-  )],
+  imports: [
+    MongooseModule.forFeatureAsync(
+      [
+        { name: Todo.name, useFactory: () => {
+          const schema = TodoSchema;
+          schema.pre('save', () => console.log('Saving new todo to DB'))
+          return schema;
+        } },
+      ],
+    )
+  ],
   controllers: [TodosController],
   providers: [TodosService],
 })

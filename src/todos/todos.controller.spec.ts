@@ -1,32 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TodosController } from './todos.controller';
 import { TodosService } from './todos.service';
+import { TodosModule } from './todos.module';
+import { AppModule } from '../app.module';
 
 describe('Todos Controller', () => {
   let controller: TodosController;
+  let todosService = { findAll: () => ['Eat', 'Code', 'Sleep'] };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [TodosController],
-      providers: [TodosService],
-    }).compile();
+      imports: [AppModule, TodosModule],
+    })
+    .overrideProvider(TodosService)
+    .useValue(todosService)
+    .compile();
 
     controller = module.get<TodosController>(TodosController);
   });
-
-  console.log(controller);
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
   describe('GET /todos', () => {
-    it('should return an array', () => {
-      expect(controller.findAll()).toBeInstanceOf(Array);
+    it('should return an array', async () => {
+      expect(await controller.findAll()).toBeInstanceOf(Array);
     });
 
-    it('should return a list of todos', () => {
-      expect(controller.findAll()).toEqual([]);
+    it('should return a list of todos', async () => {
+      expect(await controller.findAll()).toEqual(['Eat', 'Code', 'Sleep']);
     });
   });
 });
