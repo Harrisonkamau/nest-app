@@ -15,6 +15,8 @@ $ npm install
 
 Start a Mongod server by opening a terminal run: `mongod`. Ensure you have MongoDB driver installed on your PC. Else, follow these instructions [here](https://docs.mongodb.com/manual/installation/).
 
+Ensure you have Node -v `10.13` and above.
+
 ## Running the app
 
 ```bash
@@ -29,10 +31,23 @@ $ npm run start:prod
 ```
 
 ## Routes
-The app runs on port: `3000`
+**Root route**
 
-`home`: `/`
-All todos: `/todos`
+To see the home page, start your server (as shown above) and navigate to: `localhost:3000`
+
+**Retrieve all todos**
+
+To see all available todos, visit `localhost:3000/todos` in your browser.
+
+**Create new todo**
+
+Ensure your `mongod` instance is running, then open your API client of choice (either [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/)) and perform a `POST` request with this body:
+```json
+{
+	"name": "First todo",
+	"description": "This is my Db record"
+}
+```
 
 ## Test
 
