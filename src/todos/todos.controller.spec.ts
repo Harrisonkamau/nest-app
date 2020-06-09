@@ -14,18 +14,19 @@ describe('Todos Controller', () => {
     controller = module.get<TodosController>(TodosController);
   });
 
+  console.log(controller);
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
   describe('GET /todos', () => {
     it('should return an array', () => {
-      expect(controller.allTodos()).toBeInstanceOf(Array);
+      expect(controller.findAll()).toBeInstanceOf(Array);
     });
 
     it('should return a list of todos', () => {
-      const todos = ['Eat', 'Code', 'Sleep', 'Repeat'];
-      expect(controller.allTodos()).toEqual(todos);
+      expect(controller.findAll()).toEqual([]);
     });
   });
 });

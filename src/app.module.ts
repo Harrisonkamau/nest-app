@@ -11,8 +11,8 @@ const dbOptions = {
 
 @Module({
   imports: [
+    MongooseModule.forRoot('mongodb://localhost/nest_app', dbOptions),
     TodosModule,
-    MongooseModule.forRoot('mongodb://localhost/nest_app', dbOptions)
   ],
   controllers: [AppController],
   providers: [AppService],
