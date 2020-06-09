@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { TodosModule } from '../src/todos/todos.module';
-import { AppModule } from '../src/app.module';
 import { TodosService } from '../src/todos/todos.service';
 
 describe('Todos', () => {
@@ -11,7 +10,7 @@ describe('Todos', () => {
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, TodosModule],
+      imports: [TodosModule],
     })
       .overrideProvider(TodosService)
       .useValue(todosService)
